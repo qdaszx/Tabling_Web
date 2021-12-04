@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no,initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <title>Tabling Reservation List - Web</title>
+
+  <!-- CSS Reset -->
+  <link rel="stylesheet" href="./css/normalize.css" />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
+
+<body>
+  <header class="header">
+    <div class="header-title">
+      <h1>예약 목록</h1>
+    </div>
+  </header>
+  <main class="main">
+    <div class="main-container">
+      <section class="list">
+        <div class="list-container">
+          <article class="list-inner">
+            <div>
+              <ul>
+                <li>시간</li>
+                <li>상태</li>
+              </ul>
+            </div>
+            <div>
+              <ul>
+                <li>예약자명 - <span>테이블명</span></li>
+                <li>
+                  <span>성인 00</span>
+                  <span>아이 00</span>
+                </li>
+                <li>
+                  <span>메뉴명<span>(갯수)</span></span>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <button>예약/취소</button>
+            </div>
+          </article>
+        </div>
+      </section>
+      <section class="detail">
+        <div class="detail-container">
+          <article class="detail-reservation-info">
+            <div class="detail-head-container">
+              <h2 class="detail-head-title">예약 정보</h2>
+              <button class="detail-head-button">닫기</button>
+            </div>
+            <ul>
+              <li>
+                <span>예약 상태</span> value
+              </li>
+              <li>
+                <span>예약 시간</span> value
+              </li>
+              <li>
+                <span>접수 시간</span> value
+              </li>
+            </ul>
+          </article>
+          <article class="detail-user-info">
+            <h2>고객 정보</h2>
+            <ul>
+              <li>
+                <span>고객 성명</span> value
+              </li>
+              <li>
+                <span>고객 등급</span> value
+              </li>
+              <li>
+                <span>고객 메모</span> value
+              </li>
+              <li>
+                <span>요청사항</span> value
+              </li>
+            </ul>
+          </article>
+        </div>
+      </section>
+    </div>
+  </main>
+</body>
+
+</html>
