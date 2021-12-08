@@ -1,9 +1,16 @@
-* {
+*,
+*::after,
+*::before {
   box-sizing: border-box;
 }
 
+body::-webkit-scrollbar {
+  display: none; /* Chrome , Safari , Opera */
+}
+
 body {
-  margin: 0 auto;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
   background-color: #ced8e4;
 }
 
@@ -16,75 +23,212 @@ ul {
 .header {
 }
 
-.header .header-title {
+.header-title {
   width: 100%;
-  height: 100%;
-  margin: 0 auto;
+  height: 10rem;
+  padding: 2rem 0 0 0;
   text-align: center;
-  font-size: x-large;
+  font-size: 1.8rem;
 }
 
 /* main */
-.main .main-container {
+.main {
+}
+
+.main-container {
   width: 100%;
   height: 100%;
   padding: 8px;
-  position: relative;
 }
 
 /* list */
-.list .list-container .list-inner {
+.list-inner {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   width: 100%;
+  margin: 0 0 2rem 0;
   padding: 1rem 2rem;
   background-color: #ffffff;
   border-radius: 10px;
+}
+
+.list-left {
+  text-align: start;
+  min-width: 15%;
+  padding: 0 1.4rem 0 0;
+}
+
+.list-left-timeReserved {
+  font-size: 1.4rem;
+  margin: 0 0 1rem 0;
+}
+
+.list-left-status {
+  font-size: 1.2rem;
+}
+
+.list-left .reserved {
+  color: #3bb94c;
+}
+
+.list-left .seated {
+  color: #162149;
+}
+
+.list-center {
+  text-align: start;
+}
+
+.list-center-name {
+  margin: 0 0 1rem 0;
+  word-wrap: break-word;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.list-center-customer-number {
+  margin: 0 0 1rem 0;
+}
+
+.list-center-menu {
+  word-wrap: break-word;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.list-right {
+  text-align: right;
+  margin-left: auto;
+}
+
+.list-right-button {
+  border: 1px solid #162149;
+  border-radius: 4px;
+}
+
+.list-right .reserved {
+  background-color: #162149;
+  color: #ffffff;
+}
+
+.list-right .seated {
+  background-color: #ffffff;
+  color: #162149;
 }
 
 /* detail */
-.detail .detail-container {
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: 400px;
-  padding: 1rem 2rem;
-  margin: 8px 8px 0 0;
+.detail-container {
   background-color: #ffffff;
-  border-radius: 10px;
 }
 
-.detail .detail-head-container {
+.detail-head-container {
   position: relative;
   line-height: 1.2rem;
+  margin: 0 0 2rem 0;
+}
+
+.detail-info-flex {
+  display: flex;
+  flex-direction: column;
+}
+
+.detail .inner_flex {
+  display: flex;
 }
 
 .detail-head-title {
   text-align: center;
 }
 
+.detail-text__gray {
+  font-size: 1.2rem;
+  margin: 0 0 1.5rem 0;
+  color: gray;
+}
+
+.detail-customer-request,
+.detail-customer-memo {
+  margin: 0 0 1rem 0;
+  word-wrap: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  max-height: 4.5rem;
+}
+
 @media only screen and (min-width: 1024px) {
   /* header */
-  .header .header-title {
-  }
+
   /* main */
 
   /* list */
-  .list .list-container {
+  .list-container {
     margin: 0 408px 0 0;
   }
 
+  .list-center {
+    min-width: 70%;
+  }
+
+  .list-center-name {
+    font-size: 1.2rem;
+  }
+
+  .list-center-customer-number {
+    font-size: 1.2rem;
+  }
+
+  .list-center-menu {
+    font-size: 1.2rem;
+  }
+
+  .list-right {
+    width: 70%;
+  }
+
+  .list-right-button {
+    padding: 0.4rem 1.5rem;
+    line-height: 1.5rem;
+  }
+
   /* detail */
-  .detail .detail-head-button {
+  .detail-container {
+    position: fixed;
+    right: 0;
+    top: 10rem;
+    width: 400px;
+    padding: 0.4rem 2rem;
+    margin: 8px 8px 0 0;
+    border-radius: 10px;
+  }
+
+  .detail-close-button {
     display: none;
+  }
+
+  .detail .grow4 {
+    font-size: 1.2rem;
+    padding: 0 0 1.2rem 1rem;
+    line-height: 1.5rem;
+    max-width: 250px;
+    flex-grow: 4;
+    flex-shrink: 0;
+    text-align: left;
+  }
+
+  .detail .grow1 {
+    line-height: 1.5rem;
+    flex-grow: 1;
+    flex-shrink: 0;
   }
 }
 
 @media only screen and (max-width: 1023px) {
   /* header */
   .header .header-title {
-    margin: 4rem auto;
+    margin: 1rem auto;
   }
 
   /* main */
@@ -96,16 +240,129 @@ ul {
   .list .list-container {
   }
 
+  .list .list-container .list-inner {
+    padding: 0.8rem 1rem;
+  }
+
+  .list .list-left {
+    font-size: 0.3rem;
+    padding: 0 0.8rem 0 0;
+    min-width: 10%;
+    flex-shrink: 0;
+  }
+
+  .list .list-left .list-left-timeReserved {
+    font-size: 1.2rem;
+  }
+
+  .list .list-left .list-left-status {
+    font-size: 1rem;
+  }
+
+  .list .list-center {
+    font-size: 0.5rem;
+    max-width: 55%;
+  }
+
+  .list .list-center .list-center-name {
+    font-size: 1rem;
+  }
+
+  .list .list-center .list-center-customer-number {
+    font-size: 1rem;
+  }
+
+  .list .list-center .list-center-menu {
+    font-size: 1rem;
+  }
+
+  .list .list-right .list-right-button {
+    padding: 0.4rem 1rem;
+    line-height: 1.2rem;
+    flex-shrink: 0;
+  }
+
   /* detail */
-  .detail {
+  .hidden {
     display: none;
   }
 
-  .detail .detail-head-button {
+  .modal-inner {
+    z-index: 11;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 85%;
+  }
+
+  .modal-dim {
+    z-index: 10;
+    left: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+  }
+
+  .detail {
+    min-width: 300px;
+  }
+
+  .detail .detail-container {
+    width: 100%;
+    padding: 0.4rem 2rem;
+    margin: 8px 8px 0 0;
+    border-radius: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+  }
+
+  .detail .detail-head-container {
+    position: relative;
+  }
+
+  .detail .detail-close-button {
     position: absolute;
     top: 0;
     right: 0;
     border: 0px solid #ffffff;
     background-color: #ffffff;
   }
+
+  .detail .grow1 {
+    line-height: 1.5rem;
+    flex-grow: 1;
+    flex-shrink: 0;
+  }
+
+  .detail-text-value {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 1.5;
+    max-height: 1.5rem;
+  }
+
+  .detail .grow4 {
+    padding: 0 0 1.2rem 1rem;
+    line-height: 1.5rem;
+    flex-grow: 2;
+  }
+
+  .detail-customer-request,
+  .detail-customer-memo {
+    margin: 0 0 1rem 0;
+    word-wrap: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    line-height: 1.5;
+    max-height: 4.5rem;
+  }
+}
+
+.margin-0 {
+  margin: 0;
 }
