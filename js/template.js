@@ -1,61 +1,20 @@
-// 요구사항
-/*
-// TODO: 페이지 접근시 최초 데이터 Read & Rendering
-- [x] 예약 목록를 표출한다.
-- [x] 예약 상세를 표출한다.
-- [x] 초기 예약 상세는 첫 번째 예약 아이템을 표출
-- [x] 예약 목록 내에 있는 리스트를 표출한다.
-- [x] reservations.status가 done 이면 표출하지 않는다.
-
-// TODO: 스타일링
-- [X] 예약 아이템 내에 예약 데이터를 좌측, 중앙, 및 우측으로 3열로 구분하여 표출한다.
-- [X] 좌측에 예약 시간과 예약 상태를 1열 2행으로 중앙 정렬로 표출한다.
-
-- [x] 중앙은 1열 3행으로 표출한다.
-- [x] "예약자명 - 테이블명 [, 테이블명]"
-- [x] "성인 00 아이 00"
-- [x] "메뉴명(갯수) [, 메뉴명(갯수)]"
-
-- [x] 우측에 [착석] 또는 [퇴석] 버튼을 표출한다.
-- [x] reserved면 [착석] (버튼 색상 - #162149)
-- [x] [착석] 버튼을 클릭 시 [퇴석] 으로 변경된다.
-- [x] seated면 [퇴석] (버튼 색상 - #ffffff)
-
-- [x] 고객 메모 및 요청 사항 데이터는 최대 3행으로 표출
-- [x] 그 외 데이터는 1행으로 표출
-
-// TODO: 데이터에 따른 상태값 변화
-- [x] 예약 상태가 reserved 일 경우 "예약" (글씨 색상 - #3BB94C) 한글로 표시한다.
-- [x] 예약 상태가  seated 일 경우  "착석 중" (글씨 색상 - #162149) 한글로 표시한다.
-
-// TODO: 이벤트 처리
-- [x] 예약 아이템을 클릭하면 예약 상세 (예약 및 고객 정보)에 관련 데이터를 표출한다.
-
-// TODO: 데스크탑 환경에서 적용 사항 (1024px 이상)
-- [x] Desktop은 오른쪽 예약 상세에 표출
-
-// TODO: 모바일 환경에서 적용 사항 (1024px 미만)
-- [x] Mobile은 예약 상세 팝업에 표출
-- [x] 팝업의 닫기를 터치하면 팝업 종료
-- [x] dim 영역을 터치하면 팝업 종료
-*/
-
 const BASE_URL = "http://3.35.25.199/v1/store/9533/reservations"
 
 const $ = (selector) => document.querySelector(selector);
-
 
 
 function App() {
   this.currentListItemId = 0;
   this.detailState = [];
 
+  // 화면 렌더링시 모바일 환경일 경우
   window.onload = () => {
     if (window.innerWidth < 1024) {
       $(".detail-container").classList.add("modal-inner")
     }
   }
 
+  // 모바일 환경일 경우 팝업 기능에 해당하는 CSS 부여
   window.onresize = () => {
     if (window.innerWidth < 1024) {
       $(".detail-container").classList.add("modal-inner")
@@ -64,11 +23,14 @@ function App() {
 
   const detailModal = $(".detail-container");
   const modalDim = $(".modal-dim");
+
+  // Dim 처리를 클릭 시 팝업 종료
   modalDim.addEventListener("click", () => {
     detailModal.classList.add("hidden");
     modalDim.classList.add("hidden");
   });
 
+  // 팝업의 닫기를 터치 시 팝업 종료
   $(".detail-container").addEventListener("click", (e) => {
     if (e.target.classList.value.match("detail-close-button")[0] === "detail-close-button") {
       detailModal.classList.add("hidden");
@@ -76,6 +38,7 @@ function App() {
     }
   })
 
+  // 각 예약 리스트 요소마다 이벤트 위임
   $(".list").addEventListener("click", (e) => {
     // [착석] 버튼을 클릭 시 [퇴석] 으로 변경된다
     if (e.target.classList.contains("list-right-button")) {
@@ -89,6 +52,7 @@ function App() {
     let checkId = e.target.closest("article").dataset.reservationId;
     this.currentListItemId = checkId;
 
+    // 모바일 환경에서 상세 정보를 볼 경우
     if (window.innerWidth < 1024) {
       $(".detail-container").classList.remove("hidden")
       $(".modal-dim").classList.remove("hidden")
@@ -99,6 +63,7 @@ function App() {
   })
 
   const ShowList = (item, index) => {
+    // status가 done이면 미표출
     if (item.status === "done") return;
 
     let tableNames = "";
@@ -117,6 +82,7 @@ function App() {
         i === 0 ? menuNameAndQty += item.menus[i].name + `(${item.menus[i].qty})` : menuNameAndQty += `, ` + item.menus[i].name + `(${item.menus[i].qty})`
       }
     }
+
     return $(".list-container").innerHTML += `<article data-reservation-id="${index}" class="list-inner">
         <div class="list-left">
           <ul>
@@ -156,8 +122,9 @@ function App() {
       </article > `;
   }
 
-  const ShowDetail = (state, index) => {
+  const ShowDetail = (state) => {
     let item = state[this.currentListItemId].reservation;
+
     return $(".detail-container").innerHTML = `<article class="detail-reservation-info">
             <div class="detail-head-container">
               <h2 class="detail-head-title">예약 정보</h2>
@@ -205,6 +172,7 @@ function App() {
           </article>`
   }
 
+  // 초기 화면 렌더링
   const render = async () => {
     const getData = await axios.get(BASE_URL)
     const reservations = await getData.data.reservations
